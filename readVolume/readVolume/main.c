@@ -42,20 +42,20 @@ void UART_transmit_string(char *str)
 
 void ADC_INIT(void)
 {
-	ADMUX |= 0x40;		// AVCC를 기준전압으로 선택
+	ADMUX |= 0x40;		// AVCC를 기준전압으로 선택  0100 0000
 	
-	ADCSRA |= 0x07;		// 분주비 설정 ADCSRA |= (1 << ADPS1) | (1 << ADPS0);		
+	ADCSRA |= (1 << ADPS1) | (1 << ADPS0);		// 분주비 128 설정 ADCSRA |= (1 << ADPS1) | (1 << ADPS0);	0000 0111	
 	ADCSRA |= (1 << ADEN);		// ADC 활성화
 	ADCSRA |= (1 << ADATE);		// 자동 트리거 모드
 	
-	ADMUX |= ((ADMUX & 0xE0) | channel);		// 채널 선택
+	ADMUX |= ((ADMUX & 0xE0) | channel);		// 채널 선택.  0xE0 = 1110 0000
 	ADCSRA |= (1 << ADSC);		// 변환 시작
 }
 
 int read_ADC(unsigned char channel)
 {
-	while(!(ADCSRA & (1 << ADIF)));		// 변환 종료 대기
-	return ADC;		// 10비트 값을 변환	return ADCW;
+	while(!(ADCSRA & (1 << ADIF)));		// 변환 종료 대기. AD 변환이 종료되고 데이터 레지스터가 업데이트 되면 1로 세트
+	return ADCW;		// 10비트 값을 변환	return ADCW;
 }
 
 void int_to_string(int n, char *buffer)
@@ -81,7 +81,6 @@ int main(void)
 		
 		_delay_ms(1000);		// 1초에 한 번 읽음
 	}
-	return 1;
 }
 
 
