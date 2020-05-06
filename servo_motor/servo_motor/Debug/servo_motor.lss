@@ -72,7 +72,7 @@ Disassembly of section .text:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 00000080 <INIT_TIMER1>:
-#define PULSE_MAX			4928		// 최대 펄스 길이
+#define PULSE_MAX			4195		// 최대 펄스 길이
 
 void INIT_TIMER1(void)
 {
@@ -95,7 +95,7 @@ void INIT_TIMER1(void)
   96:	82 60       	ori	r24, 0x02	; 2
   98:	8c 93       	st	X, r24
 	
-	ICR1 = 41942;
+	ICR1 = 41942;		// 카운터의 TOP 값
   9a:	86 ed       	ldi	r24, 0xD6	; 214
   9c:	93 ea       	ldi	r25, 0xA3	; 163
   9e:	90 93 87 00 	sts	0x0087, r25	; 0x800087 <__DATA_REGION_ORIGIN__+0x27>
@@ -123,8 +123,8 @@ int main(void)
 		OCR1A = PULSE_MIN;		// 0도
   b4:	e8 e8       	ldi	r30, 0x88	; 136
   b6:	f0 e0       	ldi	r31, 0x00	; 0
-  b8:	43 e5       	ldi	r20, 0x53	; 83
-  ba:	55 e0       	ldi	r21, 0x05	; 5
+  b8:	41 e3       	ldi	r20, 0x31	; 49
+  ba:	58 e0       	ldi	r21, 0x08	; 8
 		_delay_ms(ROTATION_DELAY);
 		
 		OCR1A = PULSE_MID;		// 90도
@@ -133,8 +133,8 @@ int main(void)
 		_delay_ms(ROTATION_DELAY);
 		
 		OCR1A = PULSE_MAX;		// 180도
-  c0:	80 e4       	ldi	r24, 0x40	; 64
-  c2:	93 e1       	ldi	r25, 0x13	; 19
+  c0:	83 e6       	ldi	r24, 0x63	; 99
+  c2:	90 e1       	ldi	r25, 0x10	; 16
 {
     INIT_TIMER1();
 	

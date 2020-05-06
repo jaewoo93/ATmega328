@@ -10,9 +10,9 @@
 #include <util/delay.h>
 
 #define ROTATION_DELAY		1000		// 1초 대기
-#define PULSE_MIN			1363		// 최소 펄스 길이
+#define PULSE_MIN			2097		// 최소 펄스 길이
 #define PULSE_MID			3146
-#define PULSE_MAX			4928		// 최대 펄스 길이
+#define PULSE_MAX			4195		// 최대 펄스 길이
 
 void INIT_TIMER1(void)
 {
@@ -22,7 +22,7 @@ void INIT_TIMER1(void)
 	
 	TCCR1B |= (1 << CS11);		// 분주율 8, 2MHz
 	
-	ICR1 = 41942;
+	ICR1 = 41942;		// 카운터의 TOP 값
 	
 	TCCR1A |= (1 << COM1A1);		// 비반전 모드
 	
