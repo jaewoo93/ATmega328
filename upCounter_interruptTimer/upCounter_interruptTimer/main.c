@@ -29,9 +29,10 @@ int main(void)
 	sei();		// 전역적으로 인터럽트 허용
 	
 	
+	
     while (1) 
     {
-		if(interrupt_count == 64)		// 1초 경과
+		if(interrupt_count >= 64)		// 1초 경과
 		{
 			interrupt_count = 0;		// 인터럽트 발생 횟수 초기화
 			
@@ -40,6 +41,6 @@ int main(void)
 		}
     }
 	
-	return 1;
+	return 0;
 }
 

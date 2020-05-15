@@ -142,24 +142,24 @@ int main(void)
   d4:	80 83       	st	Z, r24
 	sei();		// 전역적으로 인터럽트 허용
   d6:	78 94       	sei
-		if(interrupt_count == 64)		// 1초 경과
+		if(interrupt_count >= 64)		// 1초 경과
 		{
 			interrupt_count = 0;		// 인터럽트 발생 횟수 초기화
 			
 			count = (count + 1) & 10;		// 표시할 숫자
 			PORTD = numbers[count];		// 숫자 데이터 출력
   d8:	2c ef       	ldi	r18, 0xFC	; 252
-	sei();		// 전역적으로 인터럽트 허용
+	
 	
 	
     while (1) 
     {
-		if(interrupt_count == 64)		// 1초 경과
+		if(interrupt_count >= 64)		// 1초 경과
   da:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
   de:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <_edata+0x1>
   e2:	80 34       	cpi	r24, 0x40	; 64
   e4:	91 05       	cpc	r25, r1
-  e6:	c9 f7       	brne	.-14     	; 0xda <main+0x1c>
+  e6:	cc f3       	brlt	.-14     	; 0xda <main+0x1c>
 		{
 			interrupt_count = 0;		// 인터럽트 발생 횟수 초기화
   e8:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <_edata+0x1>
